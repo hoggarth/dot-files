@@ -3,7 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 #plugins=(ant git knife lein cake macports osx ruby svn textmate vundle)
 #zstyle -t ':omz:plugin:tmux:auto' start 'yes'
-plugins=(osx textmate tmux vundle git svn ant macports sprunge rvm ruby lein grc fasd brew)
+plugins=(osx tmux vundle git svn ant macports sprunge rvm ruby lein grc fasd brew vim)
 
 # Set to the name theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -69,8 +69,6 @@ HISTFILE=$HOME/.zsh/history
 
 export DISPLAY=:0.0
 export EDITOR=/usr/bin/vim
-export VISUAL=$HOME/bin/mate_wait
-export LESSEDIT='mate -l %lm %f'
 
 export ANT_HOME=$HOME/Library/apache-ant-1.8.2
 export ANT_OPTS="-Xms1024m -Xmx1024m"
@@ -146,7 +144,7 @@ export XMLSH=/Users/hoggarth/Library/xmlsh_1_2_1
 
 # My Nice to Have Aliases
 alias ow="open ."
-alias ep="mate ~/.zshrc"
+alias ep="vim ~/.zshrc"
 alias fu='sudo $( fc -ln -1)'
 alias gitk="/usr/bin/wish $(which gitk)"
 
