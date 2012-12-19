@@ -204,7 +204,7 @@ alias cdpr="cd $PRICINGDIRECTORY"
 export SOACOOKBOOKDIRECTORY=$HOME/Development/soa_cookbook
 alias cdsoa="cd $SOACOOKBOOKDIRECTORY"
 
-export qtc=$HOME/Development/q2c-integrations
+export qtc=$HOME/Development/qtc
 alias cdqtc="cd $qtc"
 
 #View Logs on our carbon servers
