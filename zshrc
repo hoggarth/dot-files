@@ -380,12 +380,19 @@ fixbmi () {
   cat $1 | xml sel -t -c '//quote_process' | xml fo | sponge $1
 }
 
+pbbmi() {
+        pbpaste > tmp.xml
+        ORDERXML=`xml sel -t -v '//quoteNumber_quote' tmp.xml`.xml
+        mv tmp.xml $ORDERXML
+        fixbmi $ORDERXML
+}
+
 showpromos () {
   cat $1 | xml sel -t -m '//line_process[promotionDetails_line!=""]' -v promotionDetails_line -n | perl -MHTML::Entities -ne 'print decode_entities($_)'
 }
 
 sendOrderToTest() {
-  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://esb-403-qtc-prod:8280/services/BMI_Orders
+  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://esb-403-qtc-test:8280/services/BMI_Orders
 }
 
 sendOrderToProd() {
