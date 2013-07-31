@@ -3,11 +3,13 @@ export ZSH=$HOME/.oh-my-zsh
 
 #plugins=(ant git knife lein cake macports osx ruby svn textmate vundle)
 #zstyle -t ':omz:plugin:tmux:auto' start 'yes'
-plugins=(osx tmux vundle git svn ant mvn sprunge rvm ruby lein grc fasd brew vim)
+plugins=(osx tmux vundle git ant mvn sprunge rvm ruby lein grc fasd brew gem vim svn)
+#plugins=(osx vundle git svn ant mvn sprunge rvm ruby lein grc fasd brew vim)
 
 # Set to the name theme to load.
 # Look in ~/.oh-my-zsh/themes/
 export ZSH_THEME="hoggarth"
+export ZSH_TMUX_AUTOSTART=true
 
 # Comment this out to disable weekly auto-update checks
 # export DISABLE_AUTO_UPDATE="false"
@@ -154,12 +156,13 @@ alias cp='nocorrect cp'        # no spelling correction on cp
 alias mkdir='nocorrect mkdir'  # no spelling correction on mkdir
 
 # Local Emacs
-alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+# alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 
 #export SAXON_HOME=$HOME/Library/Java
 #export SAXON_HOME=$HOME/.m2/repository/net/sf/saxon/saxon/8.9
-export SAXON_HOME=$HOME/Library/saxon
+export SAXON_HOME=$HOME/Library/SaxonHE9-5-1-1
 export SAXON_JAR=$SAXON_HOME/saxon9he.jar
+alias xslt="java -jar $SAXON_JAR"
 
 export TRANG_HOME=$HOME/Library/trang-20081028
 alias trang='java -jar $TRANG_HOME/trang.jar'
@@ -397,6 +400,10 @@ sendOrderToTest() {
 
 sendOrderToProd() {
   curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://qtc-esb-400:8280/services/BMI_Orders
+}
+
+sendOrderToNewProd () {
+  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://10.21.85.107:8280/services/BMI_Orders
 }
 
 # RVM
