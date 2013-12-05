@@ -224,6 +224,8 @@ alias esb-prod-logs="ssh root@esb-prod 'tail -f /opt/carbon/logs/*'"
 alias wsas-prod-logs="ssh root@wsas-prod 'tail -f /opt/carbon/logs/*'"
 alias bps-prod-logs="ssh root@bps-prod 'tail -f /opt/carbon/logs/*'"
 alias bam-prod-logs="ssh root@bam-prod 'tail -f /opt/carbon/logs/*'"
+alias esb-qtc-qaoracle-logs="ssh root@esb-403-qtc-qaoracle 'tail -f /var/log/carbon/*'"
+alias bps-qtc-qaoracle-logs="ssh root@bps-212-qtc-qaoracle 'tail -f /var/log/carbon/*'"
 
 test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
@@ -384,6 +386,12 @@ foxml () {
 	cat $1 | xml fo | sponge $1
 }
 
+pbxml () {
+	pbpaste > /tmp/pb.xml;
+	cat /tmp/pb.xml | xml fo | pbcopy;
+	rm /tmp/pb.xml;
+}
+
 fixbmi () {
   cat $1 | xml sel -t -c '//quote_process' | xml fo | sponge $1
 }
@@ -409,6 +417,15 @@ sendOrderToProd() {
 
 sendOrderToNewProd () {
   curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://10.21.85.107:8280/services/BMI_Orders
+}
+
+worklog () {
+  LOGDIRECTORY=$HOME/Documents/Worklog/$(date -j +"%Y/%m")
+  if [[ ! -d $LOGDIRECTORY$ ]] 
+  then
+    mkdir -p $LOGDIRECTORY
+  fi
+  emacs $LOGDIRECTORY/$(date -j +"%Y%m%d.org")
 }
 
 # RVM
