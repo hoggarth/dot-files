@@ -3,7 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 #plugins=(ant git knife lein cake macports osx ruby svn textmate vundle)
 #zstyle -t ':omz:plugin:tmux:auto' start 'yes'
-plugins=(osx tmux vundle git ant mvn sprunge rvm ruby lein grc fasd brew gem vim svn)
+plugins=(osx tmux vundle git ant mvn sprunge rvm ruby lein grc fasd brew gem vim svn knife vagrant)
 #plugins=(osx vundle git svn ant mvn sprunge rvm ruby lein grc fasd brew vim)
 
 # Set to the name theme to load.
@@ -44,7 +44,12 @@ export PATH=$PATH:$HOME/Development/depot_tools
 #export PATH=$PATH:$HOME/Library/gradle-0.5.2/bin
 export PATH=$PATH:/Applications/SuperCollider
 #export PATH=$PATH:$HOME/Library/spring-roo-1.0.0.RELEASE/bin
-export PATH=$PATH:/usr/local/share/python
+#export PATH=$PATH:/usr/local/share/python
+export PATH=$PATH:/usr/local/lib/ruby/gems/2.0.0/gems/berkshelf-2.0.10/bin
+export PATH=$PATH:/usr/local/lib/ruby/gems/2.0.0/gems/bundler-1.3.5/bin
+export PATH=$PATH:/usr/local/lib/ruby/gems/2.0.0/gems/cucumber-1.3.10/bin
+export PATH=$PATH:/usr/local/lib/ruby/gems/2.0.0/gems/test-kitchen-1.0.0/bin
+export PATH=$PATH:/usr/local/lib/ruby/gems/2.0.0/gems/rspec-core-2.14.7/exe
 
 source $ZSH/oh-my-zsh.sh
 

@@ -17,6 +17,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'actionshrimp/vim-xpath'
 Bundle 'wycats/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -31,6 +32,7 @@ Bundle 'vim-orgmode'
 "Bundle 'XML-Completion'
 " non github repos
 Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'vim-ruby/vim-ruby'
 " ...
 
 filetype plugin indent on     " required! 
@@ -73,3 +75,8 @@ nmap <Leader>i :%!xsltlint<CR>
 let g:EclimXmlValidate = 0
 let g:xml_syntax_folding=1
 
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+
+noremap ; :
+noremap : ;
+syntax on
