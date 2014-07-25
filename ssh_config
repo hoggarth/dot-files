@@ -1,0 +1,8 @@
+Host pebbles-remote
+User hoggarth
+HostName Pebbles.54610165.members.btmm.icloud.com
+AddressFamily inet6
+Protocol 2
+
+Host *
+User root

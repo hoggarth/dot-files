@@ -96,7 +96,7 @@ export PARROT_HOME=$HOME/Library/parrot/bin
 export MANPATH=/opt/local/share/man:$MANPATH
 export MAVEN1_HOME=/usr/share/maven-1.1
 export MAVEN_HOME=/opt/local/share/java/maven2
-export MAVEN_OPTS="-Xms512m -Xmx1024m -XX:MaxPermSize=512m -Dgpg.passphrase=AxilaPt2"
+export MAVEN_OPTS="-Xms512m -Xmx4096m -XX:MaxPermSize=1024m -Dgpg.passphrase=AxilaPt2"
 export PENROSE_OPTS="-Xms512m -Xmx512m"
 #export RUBYOPT=rubygems
 #export SCALA_HOME=$HOME/Library/scala-2.8.0.Beta1-prerelease
@@ -161,7 +161,8 @@ alias cp='nocorrect cp'        # no spelling correction on cp
 alias mkdir='nocorrect mkdir'  # no spelling correction on mkdir
 
 # Local Emacs
-# alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+# alias emacs="/usr/local/Cellar/emacs/24.3/Emacs.app/Contents/MacOS/Emacs -nw"
 
 #export SAXON_HOME=$HOME/Library/Java
 #export SAXON_HOME=$HOME/.m2/repository/net/sf/saxon/saxon/8.9
@@ -419,6 +420,14 @@ sendOrderToNewProd () {
   curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://10.21.85.107:8280/services/BMI_Orders
 }
 
+loadAccountC () {
+  curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_Namespace>concur.com</met:m_Namespace><met:m_Username>'$1'</met:m_Username></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://esb-403-qtc-qaoracle:8280/services/MT_Account_Proxy
+}
+
+loadAccount () {
+	        curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_AccountID>'$1'</met:m_AccountID></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://esb-403-qtc-qaoracle:8280/services/MT_Account_Proxy
+}
+
 worklog () {
   LOGDIRECTORY=$HOME/Documents/Worklog/$(date -j +"%Y/%m")
   if [[ ! -d $LOGDIRECTORY$ ]] 
@@ -437,3 +446,6 @@ worklog () {
 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
