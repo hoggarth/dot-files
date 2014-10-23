@@ -162,7 +162,6 @@ alias mkdir='nocorrect mkdir'  # no spelling correction on mkdir
 
 # Local Emacs
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-# alias emacs="/usr/local/Cellar/emacs/24.3/Emacs.app/Contents/MacOS/Emacs -nw"
 
 #export SAXON_HOME=$HOME/Library/Java
 #export SAXON_HOME=$HOME/.m2/repository/net/sf/saxon/saxon/8.9
