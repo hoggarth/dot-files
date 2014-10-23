@@ -77,6 +77,4 @@ let g:xml_syntax_folding=1
 
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 
-noremap ; :
-noremap : ;
 syntax on
