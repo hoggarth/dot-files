@@ -1,8 +1,20 @@
 Host pebbles-remote
-User hoggarth
-HostName Pebbles.54610165.members.btmm.icloud.com
-AddressFamily inet6
-Protocol 2
+  HostName Pebbles.54610165.members.btmm.icloud.com
+  User hoggarth
+  AddressFamily inet6
+  Protocol 2
+
+Host mspdrupal-729-lrn-prod
+    HostName mspdrupal-729-lrn-prod
+    User scotth@concur.concurtech.org
+
+Host mspjiraprod
+    HostName 10.21.85.215
+    User scotth@concur.concurtech.org
 
 Host *
-User root
+    ControlMaster auto
+    ControlPath /tmp/ssh_mux_%h_%p_%r
+    ControlPersist 4h
+    ForwardAgent yes
+    User root
