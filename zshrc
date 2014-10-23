@@ -420,6 +420,10 @@ sendOrderToNewProd () {
   curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://10.21.85.107:8280/services/BMI_Orders
 }
 
+sendOracleOrderToTest () {
+  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://esb-403-qtc-test:8280/services/Oracle_Orders
+}
+
 loadAccountC () {
   curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_Namespace>concur.com</met:m_Namespace><met:m_Username>'$1'</met:m_Username></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://esb-403-qtc-prod:8280/services/MT_Account_Proxy
 }
