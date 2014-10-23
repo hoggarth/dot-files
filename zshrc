@@ -3,7 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 #plugins=(ant git knife lein cake macports osx ruby svn textmate vundle)
 #zstyle -t ':omz:plugin:tmux:auto' start 'yes'
-plugins=(osx tmux vundle git ant mvn sprunge rvm ruby lein grc fasd brew gem vim svn knife vagrant)
+plugins=(osx tmux vundle git ant mvn sprunge lein grc fasd brew vim svn knife vagrant)
 #plugins=(osx vundle git svn ant mvn sprunge rvm ruby lein grc fasd brew vim)
 
 # Set to the name theme to load.
