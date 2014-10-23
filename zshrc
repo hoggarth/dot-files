@@ -96,7 +96,7 @@ export PARROT_HOME=$HOME/Library/parrot/bin
 export MANPATH=/opt/local/share/man:$MANPATH
 export MAVEN1_HOME=/usr/share/maven-1.1
 export MAVEN_HOME=/opt/local/share/java/maven2
-export MAVEN_OPTS="-Xms512m -Xmx4096m -XX:MaxPermSize=1024m -Dgpg.passphrase=AxilaPt2"
+export MAVEN_OPTS="-Xms512m -Xmx1024m -XX:MaxPermSize=512m -Dgpg.passphrase=AxilaPt2"
 export PENROSE_OPTS="-Xms512m -Xmx512m"
 #export RUBYOPT=rubygems
 #export SCALA_HOME=$HOME/Library/scala-2.8.0.Beta1-prerelease
