@@ -81,15 +81,15 @@ export ANT_HOME=$HOME/Library/apache-ant-1.8.2
 export ANT_OPTS="-Xms1024m -Xmx1024m"
 export AXIS2_HOME=$HOME/Library/wso2wsas-2.3
 
-export CATALINA_HOME=/usr/local/apache-tomcat-5.5.26
-export CATALINA_OPTS="-Xms512m -Xmx512m"
+#export CATALINA_HOME=/usr/local/apache-tomcat-5.5.26
+#export CATALINA_OPTS="-Xms512m -Xmx512m"
 
-export DERBY_INSTALL=$HOME/Library/db-derby-10.4.1.3-bin
-export GROOVY_HOME=/opt/local/share/java/groovy
+#export DERBY_INSTALL=$HOME/Library/db-derby-10.4.1.3-bin
+#export GROOVY_HOME=/opt/local/share/java/groovy
 export GWT_TOOLS=$HOME/Development/gwt/tools
 export JAVA_HOME=$(/usr/libexec/java_home)
 export JAVA_BIN=$JAVA_HOME/bin
-export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+#export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 export JELLY_HOME=$HOME/Library/Apache/commons-jelly-1.0
 export JRUBY_HOME=$HOME/Library/jruby-1.5.2
 export PARROT_HOME=$HOME/Library/parrot/bin
@@ -408,7 +408,7 @@ showpromos () {
 }
 
 sendOrderToTest() {
-  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://esb-403-qtc-test:8280/services/BMI_Orders
+  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://mspesbqtctest:8280/services/BMI_Orders
 }
 
 sendOrderToProd() {
@@ -423,12 +423,20 @@ sendOracleOrderToTest () {
   curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://esb-403-qtc-test:8280/services/Oracle_Orders
 }
 
+loadTestAccountC () {
+  curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_Namespace>concur.com</met:m_Namespace><met:m_Username>'$1'</met:m_Username></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://mspesbqtctest:8280/services/MT_Account_Proxy
+}
+
 loadAccountC () {
   curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_Namespace>concur.com</met:m_Namespace><met:m_Username>'$1'</met:m_Username></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://esb-403-qtc-prod:8280/services/MT_Account_Proxy
 }
 
 loadAccount () {
 	        curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_AccountID>'$1'</met:m_AccountID></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://esb-403-qtc-prod:8280/services/MT_Account_Proxy
+}
+
+loadTestAccount () {
+  curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_AccountID>'$1'</met:m_AccountID></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://esb-403-qtc-test:8280/services/MT_Account_Proxy
 }
 
 worklog () {
@@ -475,6 +483,30 @@ EOF
 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:/opt/chefdk/bin
+# Uncomment these lines if you want to live on the Edge:
+#
+# group :development do
+#   gem "berkshelf", github: "berkshelf/berkshelf"
+#   gem "vagrant", github: "mitchellh/vagrant", tag: "v1.6.3"
+# end
+#
+# group :plugins do
+#   gem "vagrant-berkshelf", github: "berkshelf/vagrant-berkshelf"
+#   gem "vagrant-omnibus", github: "schisamo/vagrant-omnibus"
+# end
+
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+toUtf8 () {
+	cat $1 | sed 's/utf-16/utf-8/g' | sponge $1
+}
+
+removeNewLinesAndFormatXml () {
+	cat $1 | tr -d "\n\r" | xml fo | sponge $1
+}
+

@@ -12,9 +12,17 @@ Host mspjiraprod
     HostName 10.21.85.215
     User scotth@concur.concurtech.org
 
+Host crucible-prod
+    HostName crucible-prod
+    User CONCUR\scotth
+
+Host bps-320-prod
+    HostName 10.21.85.216
+    User CONCUR\scotth
+
 Host *
     ControlMaster auto
     ControlPath /tmp/ssh_mux_%h_%p_%r
     ControlPersist 4h
     ForwardAgent yes
-    User root
+    User scotth
