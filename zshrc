@@ -139,7 +139,7 @@ export NLS_LANG=AMERICAN_AMERICA.UTF8
 export PATH=$PATH:$SQLPATH
 
 #Atlassian CLI
-export ATLASSIANCLI_HOME=$HOME/Library/atlassian-cli-2.3.0
+export ATLASSIANCLI_HOME=$HOME/Library/atlassian-cli-3.9.0
 export PATH=$PATH:$ATLASSIANCLI_HOME
 
 #Atlassian SDK
