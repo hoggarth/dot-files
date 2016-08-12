@@ -439,6 +439,22 @@ loadTestAccount () {
   curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_AccountID>'$1'</met:m_AccountID></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://esb-403-qtc-test:8280/services/MT_Account_Proxy
 }
 
+getOrderFromTest () {
+  ORDERNUM=$1
+  ORDERPATH=$(ssh mspesbqtctest "find /opt/bmi_orders/${ORDERNUM}* | tail -n 1")
+  scp mspesbqtctest:${ORDERPATH} .
+  ORDERFILE=$(echo $ORDERPATH | awk -F/ '{print $4}')
+  fixbmi $ORDERFILE
+}
+
+getOrderFromProd () {
+  ORDERNUM=$1
+  ORDERPATH=$(ssh esb-403-qtc-prod "find /opt/bmi_orders/${ORDERNUM}* | tail -n 1")
+  scp esb-403-qtc-prod:${ORDERPATH} .
+  ORDERFILE=$(echo $ORDERPATH | awk -F/ '{print $4}')
+  fixbmi $ORDERFILE
+}
+
 worklog () {
   LOGDIRECTORY=$HOME/Documents/Worklog/$(date -j +"%Y/%m")
   if [[ ! -d ${LOGDIRECTORY} ]] 
