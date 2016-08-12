@@ -441,11 +441,21 @@ loadTestAccount () {
 
 worklog () {
   LOGDIRECTORY=$HOME/Documents/Worklog/$(date -j +"%Y/%m")
-  if [[ ! -d $LOGDIRECTORY$ ]] 
+  if [[ ! -d ${LOGDIRECTORY} ]] 
   then
-    mkdir -p $LOGDIRECTORY
+    mkdir -p ${LOGDIRECTORY}
   fi
-  emacs $LOGDIRECTORY/$(date -j +"%Y%m%d.org")
+  LOGFILE=${LOGDIRECTORY}/$(date -j +"%Y%m%d.org")
+  if [[ ! -f ${LOGFILE} ]]
+  then
+    OLDLOGFILE=$(find ~/Documents/Worklog -path ~/Documents/Worklog/Objectives -prune -o -print | tail -n 1)
+    if [[ -d ${OLDLOGFILE} ]]
+    then
+    	OLDLOGFILE=$(find ~/Documents/Worklog -path ~/Documents/Worklog/Objectives -prune -o -print | tail -n 2 | head -n 1)
+    fi
+    cp ${OLDLOGFILE} ${LOGFILE}
+  fi
+  emacs $LOGFILE
 }
 
 function vpn-connect {
