@@ -407,20 +407,16 @@ showpromos () {
   cat $1 | xml sel -t -m '//line_process[promotionDetails_line!=""]' -v promotionDetails_line -n | perl -MHTML::Entities -ne 'print decode_entities($_)'
 }
 
-sendOrderToTest() {
+sendOrderToDev() {
   curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://mspesbqtctest:8280/services/BMI_Orders
 }
 
+sendOrderToTest() {
+  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://mspesbqtctest1:8280/services/BMI_Orders
+}
+
 sendOrderToProd() {
-  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://qtc-esb-400:8280/services/BMI_Orders
-}
-
-sendOrderToNewProd () {
-  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://10.21.85.107:8280/services/BMI_Orders
-}
-
-loadTestAccountC () {
-  curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_Namespace>concur.com</met:m_Namespace><met:m_Username>'$1'</met:m_Username></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://mspesbqtctest:8280/services/MT_Account_Proxy
+  curl -H "Content-Type: application/xml; charset=utf-8" -d @$1 http://esb-qtc-403-prod:8280/services/BMI_Orders
 }
 
 loadAccountC () {
@@ -431,11 +427,23 @@ loadAccount () {
   curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_AccountID>'$1'</met:m_AccountID></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://esb-403-qtc-prod:8280/services/MT_Account_Proxy
 }
 
-loadTestAccount () {
-  curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_AccountID>'$1'</met:m_AccountID></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://esb-403-qtc-test:8280/services/MT_Account_Proxy
+loadTestAccountC () {
+  curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_Namespace>concur.com</met:m_Namespace><met:m_Username>'$1'</met:m_Username></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://mspesbqtctest1:8280/services/MT_Account_Proxy
 }
 
-getOrderFromTest () {
+loadTestAccount () {
+  curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_AccountID>'$1'</met:m_AccountID></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://mspesbqtctest1:8280/services/MT_Account_Proxy
+}
+
+loadDevAccountC () {
+  curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_Namespace>concur.com</met:m_Namespace><met:m_Username>'$1'</met:m_Username></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://mspesbqtctest:8280/services/MT_Account_Proxy
+}
+
+loadDevAccount () {
+  curl -k -X POST -H 'Content-Type: application/soap+xml;charset=UTF-8;action="http://tempuri.org/IAccountService/LoadAccount"' -d '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/" xmlns:met="http://schemas.datacontract.org/2004/07/MetraTech.ActivityServices.Common"><soap:Header/><soap:Body><tem:LoadAccount><tem:acct><met:m_AccountID>'$1'</met:m_AccountID></tem:acct><tem:timeStamp>'$(date "+%Y-%m-%dT%T-05:00")'</tem:timeStamp></tem:LoadAccount></soap:Body></soap:Envelope>' http://mspesbqtctest:8280/services/MT_Account_Proxy
+}
+
+getOrderFromDev () {
   ORDERNUM=$1
   ORDERPATH=$(ssh mspesbqtctest "find /opt/bmi_orders/${ORDERNUM}* | tail -n 1")
   scp mspesbqtctest:${ORDERPATH} .
@@ -443,10 +451,18 @@ getOrderFromTest () {
   fixbmi $ORDERFILE
 }
 
+getOrderFromTest () {
+  ORDERNUM=$1
+  ORDERPATH=$(ssh mspesbqtctest1 "find /opt/bmi_orders/${ORDERNUM}* | tail -n 1")
+  scp mspesbqtctest1:${ORDERPATH} .
+  ORDERFILE=$(echo $ORDERPATH | awk -F/ '{print $4}')
+  fixbmi $ORDERFILE
+}
+
 getOrderFromProd () {
   ORDERNUM=$1
-  ORDERPATH=$(ssh esb-403-qtc-prod "find /opt/bmi_orders/${ORDERNUM}* | tail -n 1")
-  scp esb-403-qtc-prod:${ORDERPATH} .
+  ORDERPATH=$(ssh root@esb-403-qtc-prod "find /opt/bmi_orders/${ORDERNUM}* | tail -n 1")
+  scp root@esb-403-qtc-prod:${ORDERPATH} .
   ORDERFILE=$(echo $ORDERPATH | awk -F/ '{print $4}')
   fixbmi $ORDERFILE
 }
