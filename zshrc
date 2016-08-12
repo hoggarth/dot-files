@@ -500,6 +500,9 @@ PATH=$PATH:/opt/chefdk/bin
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+PERL_MB_OPT="--install_base \"/Users/hoggarth/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/hoggarth/perl5"; export PERL_MM_OPT;
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 toUtf8 () {
